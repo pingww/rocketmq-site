@@ -18,7 +18,7 @@
 
 
 
-<meta name="description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start. Download the 4.6.0 release  Source: rocketmq-all-4.6.0-source-release.zip [PGP] [SHA512]  Binary: rocketmq-all-4.6.0-bin-release.zip [PGP] [SHA512]New Feature[ISSUE-1388] -  Add lite pull consumer support for RocketMQ.[RIP-15] -  Add IPv6 support for RocketMQ.[RIP-16] -  Add Request-Reply support for RocketMQ.Improvement[ISSUE-504] -  Polish &#39;No route info of this topic&#39; exception.[ISSUE-1483] -  Make QueryMsgByIdSubCommand print offsetID only once.[ISSUE-1435] -  Fix discarded mqadmin subcommand document description.[ISSUE-1528] -  Mocking related functions to make producer get right topicrouteinfo and invoke callback functions.[ISSUE-1519] -  Optimise performance/stability of transaction message.[ISSUE-1531] -  Upgrade fastjson version.[RIP-10] -  Add test cases for ConsumeMessageOrderlyService#consumeMessageDirectly.Bug[ISSUE-1082] -  Fix disconnection of HA. [ISSUE-1456] -  Fix replica abnormal recover slow issue.[ISSUE-1108] -  Fix concurrent problems with client-side connection creation.[ISSUE-1464] -  Fix the issue that master node route info was lost when the node joined the group in dledger mode.[ISSUE-1470] -  Fix the issue that lite pull consumer lost messages.[ISSUE-1491] -  Ignore IllegalStateException when remove shutdown hook.[ISSUE-1535] -  Fix ha sync transfer timeout.[ISSUE-1528] -  Fix the unit tests of DefaultMQProducer.[ISSUE-1568] -  Resolve repeat compress issue of transaction message.[ISSUE-1564] -  Fix the IP filter logic in ipv6/ipv4 coexist environment .Document  and code style improvement[ISSUE-1420] -  Polish code style. [ISSUE-1556] -  Fix cacography in guide doc.[ISSUE-1438] -  Polish definite article and indefinite article usage.[ISSUE-1439] -  Fix transaction typo in doc.[ISSUE-1526] -  Modify docs-cn description error.[ISSUE-1503] -  Fix some typo in docs/cn/design.md.">
+<meta name="description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start.">
 
 
 
@@ -30,13 +30,13 @@
 
 
 
-  <meta property="og:description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start. Download the 4.6.0 release  Source: rocketmq-all-4.6.0-source-release.zip [PGP] [SHA512]  Binary: rocketmq-all-4.6.0-bin-release.zip [PGP] [SHA512]New Feature[ISSUE-1388] -  Add lite pull consumer support for RocketMQ.[RIP-15] -  Add IPv6 support for RocketMQ.[RIP-16] -  Add Request-Reply support for RocketMQ.Improvement[ISSUE-504] -  Polish &#39;No route info of this topic&#39; exception.[ISSUE-1483] -  Make QueryMsgByIdSubCommand print offsetID only once.[ISSUE-1435] -  Fix discarded mqadmin subcommand document description.[ISSUE-1528] -  Mocking related functions to make producer get right topicrouteinfo and invoke callback functions.[ISSUE-1519] -  Optimise performance/stability of transaction message.[ISSUE-1531] -  Upgrade fastjson version.[RIP-10] -  Add test cases for ConsumeMessageOrderlyService#consumeMessageDirectly.Bug[ISSUE-1082] -  Fix disconnection of HA. [ISSUE-1456] -  Fix replica abnormal recover slow issue.[ISSUE-1108] -  Fix concurrent problems with client-side connection creation.[ISSUE-1464] -  Fix the issue that master node route info was lost when the node joined the group in dledger mode.[ISSUE-1470] -  Fix the issue that lite pull consumer lost messages.[ISSUE-1491] -  Ignore IllegalStateException when remove shutdown hook.[ISSUE-1535] -  Fix ha sync transfer timeout.[ISSUE-1528] -  Fix the unit tests of DefaultMQProducer.[ISSUE-1568] -  Resolve repeat compress issue of transaction message.[ISSUE-1564] -  Fix the IP filter logic in ipv6/ipv4 coexist environment .Document  and code style improvement[ISSUE-1420] -  Polish code style. [ISSUE-1556] -  Fix cacography in guide doc.[ISSUE-1438] -  Polish definite article and indefinite article usage.[ISSUE-1439] -  Fix transaction typo in doc.[ISSUE-1526] -  Modify docs-cn description error.[ISSUE-1503] -  Fix some typo in docs/cn/design.md.">
+  <meta property="og:description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start.">
 
 
 
   <meta name="twitter:site" content="@ApacheRocketMQ">
   <meta name="twitter:title" content="Release Notes - Apache RocketMQ - Version 4.6.0">
-  <meta name="twitter:description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start. Download the 4.6.0 release  Source: rocketmq-all-4.6.0-source-release.zip [PGP] [SHA512]  Binary: rocketmq-all-4.6.0-bin-release.zip [PGP] [SHA512]New Feature[ISSUE-1388] -  Add lite pull consumer support for RocketMQ.[RIP-15] -  Add IPv6 support for RocketMQ.[RIP-16] -  Add Request-Reply support for RocketMQ.Improvement[ISSUE-504] -  Polish &#39;No route info of this topic&#39; exception.[ISSUE-1483] -  Make QueryMsgByIdSubCommand print offsetID only once.[ISSUE-1435] -  Fix discarded mqadmin subcommand document description.[ISSUE-1528] -  Mocking related functions to make producer get right topicrouteinfo and invoke callback functions.[ISSUE-1519] -  Optimise performance/stability of transaction message.[ISSUE-1531] -  Upgrade fastjson version.[RIP-10] -  Add test cases for ConsumeMessageOrderlyService#consumeMessageDirectly.Bug[ISSUE-1082] -  Fix disconnection of HA. [ISSUE-1456] -  Fix replica abnormal recover slow issue.[ISSUE-1108] -  Fix concurrent problems with client-side connection creation.[ISSUE-1464] -  Fix the issue that master node route info was lost when the node joined the group in dledger mode.[ISSUE-1470] -  Fix the issue that lite pull consumer lost messages.[ISSUE-1491] -  Ignore IllegalStateException when remove shutdown hook.[ISSUE-1535] -  Fix ha sync transfer timeout.[ISSUE-1528] -  Fix the unit tests of DefaultMQProducer.[ISSUE-1568] -  Resolve repeat compress issue of transaction message.[ISSUE-1564] -  Fix the IP filter logic in ipv6/ipv4 coexist environment .Document  and code style improvement[ISSUE-1420] -  Polish code style. [ISSUE-1556] -  Fix cacography in guide doc.[ISSUE-1438] -  Polish definite article and indefinite article usage.[ISSUE-1439] -  Fix transaction typo in doc.[ISSUE-1526] -  Modify docs-cn description error.[ISSUE-1503] -  Fix some typo in docs/cn/design.md.">
+  <meta name="twitter:description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start.">
   <meta name="twitter:url" content="">
 
   
@@ -57,7 +57,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2019-11-20T00:00:00+08:00">
+  <meta property="article:published_time" content="2019-11-20T00:00:00+00:00">
 
 
 
@@ -287,7 +287,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Release Notes - Apache RocketMQ - Version 4.6.0">
-    <meta itemprop="description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start. Download the 4.6.0 release  Source: rocketmq-all-4.6.0-source-release.zip [PGP] [SHA512]  Binary: rocketmq-all-4.6.0-bin-release.zip [PGP] [SHA512]New Feature[ISSUE-1388] -  Add lite pull consumer support for RocketMQ.[RIP-15] -  Add IPv6 support for RocketMQ.[RIP-16] -  Add Request-Reply support for RocketMQ.Improvement[ISSUE-504] -  Polish &#39;No route info of this topic&#39; exception.[ISSUE-1483] -  Make QueryMsgByIdSubCommand print offsetID only once.[ISSUE-1435] -  Fix discarded mqadmin subcommand document description.[ISSUE-1528] -  Mocking related functions to make producer get right topicrouteinfo and invoke callback functions.[ISSUE-1519] -  Optimise performance/stability of transaction message.[ISSUE-1531] -  Upgrade fastjson version.[RIP-10] -  Add test cases for ConsumeMessageOrderlyService#consumeMessageDirectly.Bug[ISSUE-1082] -  Fix disconnection of HA. [ISSUE-1456] -  Fix replica abnormal recover slow issue.[ISSUE-1108] -  Fix concurrent problems with client-side connection creation.[ISSUE-1464] -  Fix the issue that master node route info was lost when the node joined the group in dledger mode.[ISSUE-1470] -  Fix the issue that lite pull consumer lost messages.[ISSUE-1491] -  Ignore IllegalStateException when remove shutdown hook.[ISSUE-1535] -  Fix ha sync transfer timeout.[ISSUE-1528] -  Fix the unit tests of DefaultMQProducer.[ISSUE-1568] -  Resolve repeat compress issue of transaction message.[ISSUE-1564] -  Fix the IP filter logic in ipv6/ipv4 coexist environment .Document  and code style improvement[ISSUE-1420] -  Polish code style. [ISSUE-1556] -  Fix cacography in guide doc.[ISSUE-1438] -  Polish definite article and indefinite article usage.[ISSUE-1439] -  Fix transaction typo in doc.[ISSUE-1526] -  Modify docs-cn description error.[ISSUE-1503] -  Fix some typo in docs/cn/design.md.">
+    <meta itemprop="description" content="Below is a summary of the issues addressed in the 4.6.0 release of RocketMQ. For full documentation of the release, a guide to get started, please refer to Quick Start.">
     <meta itemprop="datePublished" content="November 20, 2019">
     
 
@@ -442,7 +442,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-11-20T00:00:00+08:00">November 20, 2019</time></p>
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-11-20T00:00:00+00:00">November 20, 2019</time></p>
         
       </footer>
 
