@@ -57,7 +57,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2021-10-23T07:44:19+00:00">
+  <meta property="article:published_time" content="2021-10-26T06:15:45+00:00">
 
 
 
@@ -475,8 +475,8 @@
   <li><a href="#2build-the-source-release-candidate" id="markdown-toc-2build-the-source-release-candidate">2.Build the Source Release Candidate</a>    <ul>
       <li><a href="#21-check-the-mqversion" id="markdown-toc-21-check-the-mqversion">2.1 Check the MQVersion</a></li>
       <li><a href="#22-release-to-the-maven-repository" id="markdown-toc-22-release-to-the-maven-repository">2.2 Release to the maven repository</a></li>
-      <li><a href="#23-checkout-release-branch" id="markdown-toc-23-checkout-release-branch">2.3 Checkout release branch</a></li>
-      <li><a href="#24-rollback-and-retry" id="markdown-toc-24-rollback-and-retry">2.4 Rollback and Retry</a></li>
+      <li><a href="#23-checkout-release-branch-build-rc-files-and-self-verify-them" id="markdown-toc-23-checkout-release-branch-build-rc-files-and-self-verify-them">2.3 Checkout release branch, build rc files and self-verify them</a></li>
+      <li><a href="#24-rollback-and-retry-visit-github-using-github-token" id="markdown-toc-24-rollback-and-retry-visit-github-using-github-token">2.4 Rollback and Retry (visit github using github token)</a></li>
     </ul>
   </li>
   <li><a href="#3build-the-binary-release-candidate" id="markdown-toc-3build-the-binary-release-candidate">3.Build the Binary Release Candidate</a></li>
@@ -516,10 +516,10 @@
 <ul>
   <li>Create new pgp key. Please refer to <a href="http://www.apache.org/dev/openpgp.html">here</a> on how to use gpg key.</li>
   <li>Generate a new key via <code class="language-plaintext highlighter-rouge">gpg --full-generate-key</code>, and answer 4096 bits with no expiration time.</li>
-  <li>Upload your key to a public key server by <code class="language-plaintext highlighter-rouge">gpg --keyserver pgpkeys.mit.edu --send-key &lt;your key id&gt;</code>.</li>
+  <li>Upload your key to a public key server by <code class="language-plaintext highlighter-rouge">gpg --keyserver keys.openpgp.org --send-key &lt;your key id&gt;</code>. you can search your key after uploaded. (<code class="language-plaintext highlighter-rouge">your key id</code>’s string length is 8).</li>
   <li>Export your public key to a file by <code class="language-plaintext highlighter-rouge">gpg --armor --export &lt;your key id&gt; &gt;&gt; gpgapachekey.txt</code>.</li>
   <li>Get the key signed by other committers(Optional).</li>
-  <li>Add the key to the RocketMQ <a href="https://dist.apache.org/repos/dist/dev/rocketmq/KEYS">KEYS file</a>.</li>
+  <li>Add the key to the RocketMQ <a href="https://dist.apache.org/repos/dist/dev/rocketmq/KEYS">KEYS file</a>. ([KEYS file] managed by svn)</li>
 </ul>
 
 <p><strong>Tips:</strong> If you have more than one key in your gpg, set the code signing key to <code class="language-plaintext highlighter-rouge">~/.gnupg/gpg.conf</code> as default key is recommended.</p>
@@ -573,7 +573,7 @@
 <p>In this process, you need to use maven release plugin to release the artifact to maven repository. And also, copy them to the svn repository.</p>
 
 <h4 id="21-check-the-mqversion">2.1 Check the MQVersion</h4>
-<p>Remember to check the current version of MQVersion again, which should be equal to this released version like <code class="language-plaintext highlighter-rouge">release-4.5.0</code>.</p>
+<p>Remember to check the current version of MQVersion again, which should be equal to this released version like <code class="language-plaintext highlighter-rouge">release-4.5.0</code>. change it and push to branch <code class="language-plaintext highlighter-rouge">develop</code> if not right.</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">CURRENT_VERSION</span> <span class="o">=</span> <span class="nc">Version</span><span class="o">.</span><span class="na">V4_5_0</span><span class="o">.</span><span class="na">ordinal</span><span class="o">();</span>
 </code></pre></div></div>
 <h4 id="22-release-to-the-maven-repository">2.2 Release to the maven repository</h4>
@@ -591,12 +591,98 @@ Perform the following to generate and stage the artifacts:</p>
 
 <p><strong>Tips:</strong> If you are performing a source-only release, please remove all artifacts from the staging repo besides the .zip file containing the source and the javadocs jar file. In the Nexus GUI, you can right click on each artifact to be deleted and then select <code class="language-plaintext highlighter-rouge">Delete</code>.</p>
 
-<h4 id="23-checkout-release-branch">2.3 Checkout release branch</h4>
-<p>Checkout a new branch from the target branch(master or develop) according to the release tag with its name equal to the release version, like <code class="language-plaintext highlighter-rouge">release-4.5.0</code>.</p>
+<h4 id="23-checkout-release-branch-build-rc-files-and-self-verify-them">2.3 Checkout release branch, build rc files and self-verify them</h4>
+<ul>
+  <li>build rc files
+Checkout a new branch from the target branch(master or develop) according to the release tag with its name equal to the release version, like <code class="language-plaintext highlighter-rouge">release-4.5.0</code>.<br />
+build source and binary file by <a href="https://rocketmq.apache.org/docs/quick-start/" target="_blank">quick-start</a> and sign&amp;hash them, at last you would get files like:
+    <blockquote>
+      <p>rocketmq-all-x1.x2.x3-bin-release.zip<br />
+rocketmq-all-x1.x2.x3-bin-release.zip.asc<br />
+rocketmq-all-x1.x2.x3-bin-release.zip.sha512<br />
+rocketmq-all-x1.x2.x3-source-release.zip<br />
+rocketmq-all-x1.x2.x3-source-release.zip.asc<br />
+rocketmq-all-x1.x2.x3-source-release.zip.sha512</p>
+    </blockquote>
+  </li>
+  <li>sign files(generate <code class="language-plaintext highlighter-rouge">asc</code> file)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg --clearsign rocketmq-all-x1.x2.x3-bin-release.zip
+gpg --clearsign rocketmq-all-x1.x2.x3-source-release.zip
+</code></pre></div>    </div>
+  </li>
+  <li>generate hash(generate <code class="language-plaintext highlighter-rouge">sha512</code> file)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg --print-md SHA512 rocketmq-all-x1.x2.x3-bin-release.zip &gt; rocketmq-all-x1.x2.x3-bin-release.zip.sha512
+gpg --print-md SHA512 rocketmq-all-x1.x2.x3-source-release.zip &gt;  rocketmq-all-x1.x2.x3-source-release.zip.sha512
+</code></pre></div>    </div>
+  </li>
+  <li>self-verify sign and hash<br />
+goto 4, after self-verify, continue 2.4</li>
+</ul>
 
-<h4 id="24-rollback-and-retry">2.4 Rollback and Retry</h4>
-<p>If the staging process encounter problem, you may need to rollback:
-Delete the branch and tag created in 2.1 and then redo it.</p>
+<h4 id="24-rollback-and-retry-visit-github-using-github-token">2.4 Rollback and Retry (visit github using github token)</h4>
+<p>If the staging process encounter problem, you may need to rollback:</p>
+<ul>
+  <li>
+    <ol>
+      <li>Delete the tag created in 2.2
+        <ul>
+          <li>list all tags and find latest tag created by you
+            <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag -ln
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ol>
+
+    <ul>
+      <li>delete the tag locally
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag -d rocketmq-all-x1.x2.x3
+</code></pre></div>        </div>
+      </li>
+      <li>push update to github
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin :refs/tags/rocketmq-all-x1.x2.x3
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <ol>
+      <li>Delete 2 commits in branch develop created in 2.2
+        <ul>
+          <li>list all git logs
+            <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+</code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ol>
+
+    <ul>
+      <li>find 2 lastest commits who’s comments as bellow
+        <blockquote>
+          <p>des1: [maven-release-plugin] prepare release rocketmq-all-4.9.2]<br />
+des2: [maven-release-plugin] prepare for next development iteration]</p>
+        </blockquote>
+      </li>
+      <li>delete the 2 commits. (<code class="language-plaintext highlighter-rouge">143a34185b84aed5bc1224b353af340aa1e3df0fg</code> would be kept)
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard 143a34185b84aed5bc1224b353af340aa1e3df0fg
+git push origin HEAD --force
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <ol>
+      <li>drop staged-repos created by you in maven repo
+repo url : <a href="https://repository.apache.org/#stagingRepositories">https://repository.apache.org/#stagingRepositories</a></li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>redo from 2.1</li>
+    </ol>
+  </li>
+</ul>
 
 <h2 id="3build-the-binary-release-candidate">3.Build the Binary Release Candidate</h2>
 <p>Checkout the code to be released(must be the same as the source branch), and build the binary artifact.
@@ -754,6 +840,8 @@ The Apache RocketMQ Team</p>
 <ol>
   <li>Publish the Maven Artifacts, release the Maven artifacts in Nexus by selecting the staging repository <strong>orgapacherocketmq-XXX</strong> and clicking on the <code class="language-plaintext highlighter-rouge">Release</code> icon.</li>
   <li>Publish the Artifacts to the Apache Release Repository, use svn copy candidate release artifacts to https://dist.apache.org/repos/dist/release/rocketmq/${release-version}</li>
+  <li>Merge branch <code class="language-plaintext highlighter-rouge">develop</code> to branch <code class="language-plaintext highlighter-rouge">master</code> on https://github.com/apache/rocketmq</li>
+  <li>Publish release package on github on https://github.com/apache/rocketmq/releases</li>
 </ol>
 
 <h2 id="8-announce-the-release">8. Announce the Release</h2>
