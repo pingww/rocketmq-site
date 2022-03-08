@@ -57,7 +57,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2022-03-06T14:55:48+00:00">
+  <meta property="article:published_time" content="2022-03-08T00:48:31+00:00">
 
 
 
@@ -811,6 +811,8 @@ https://dist.apache.org/repos/dist/dev/rocketmq/KEYS</p>
 The Apache RocketMQ Team</p>
 </blockquote>
 
+<p><strong>Tips:</strong> Hash for the release tag: you could use commit id which comment like <code class="language-plaintext highlighter-rouge">[maven-release-plugin] prepare release rocketmq-all-x.x.x</code></p>
+
 <p>Once 72 hours has passed (which is generally preferred) and/or at least three +1 (binding) votes have been cast with no -1 (binding) votes, send an email closing the vote and congratulate the release candidate. Please use the subject: <strong>[RESULT][VOTE]: Release Apache RocketMQ &lt;release-version&gt; RC&lt;RC Number&gt;</strong> :</p>
 
 <blockquote>
@@ -836,14 +838,23 @@ The Apache RocketMQ Team</p>
 
 <p>If we do not pass the VOTE, fix the related issues, go back, restart the release process and increase RC number. When we call a new vote, we must use the updated mail subject: <strong>[RESTART][VOTE][#&lt;Attempt Number&gt;]: Release Apache RocketMQ &lt;release-version&gt; RC&lt;RC Number&gt;</strong></p>
 
+<p><strong>Tips:</strong> Binding votes is vote with Apache ID, Non-binding votes is vote without Apache ID.</p>
+
 <h2 id="7-publish-the-release">7. Publish the Release</h2>
 <p>Once the Apache RocketMQ PPMC votes pass, publish the release artifacts to the Nexus Maven repository and to the Apache release repository.</p>
 
 <ol>
   <li>Publish the Maven Artifacts, release the Maven artifacts in Nexus by selecting the staging repository <strong>orgapacherocketmq-XXX</strong> and clicking on the <code class="language-plaintext highlighter-rouge">Release</code> icon.</li>
-  <li>Publish the Artifacts to the Apache Release Repository, use svn copy candidate release artifacts to https://dist.apache.org/repos/dist/release/rocketmq/${release-version}</li>
-  <li>Merge branch <code class="language-plaintext highlighter-rouge">develop</code> to branch <code class="language-plaintext highlighter-rouge">master</code> on https://github.com/apache/rocketmq</li>
-  <li>Publish release package on github on https://github.com/apache/rocketmq/releases</li>
+  <li>Publish the Artifacts to the Apache Release Repository, use svn copy candidate release artifacts to https://dist.apache.org/repos/dist/release/rocketmq/${release-version}.</li>
+  <li>Merge branch <code class="language-plaintext highlighter-rouge">develop</code> to branch <code class="language-plaintext highlighter-rouge">master</code> on https://github.com/apache/rocketmq.</li>
+  <li>Publish release package on github on https://github.com/apache/rocketmq/releases.</li>
+  <li>Make a new branch named like <code class="language-plaintext highlighter-rouge">release-x.x.x</code>.</li>
+  <li>Update release notes.
+    <ul>
+      <li>Add new release note page for new released-version in <a href="https://github.com/apache/rocketmq-site">docs</a>. you can reffer <a href="https://github.com/apache/rocketmq-site/commit/4b662a197a0a77fd460614df9e231e6ffdd7c622">4.9.3 release notes</a>.</li>
+      <li>Update latest version in home page of <a href="https://github.com/apache/rocketmq-site">docs</a>. you can reffer <a href="https://github.com/apache/rocketmq-site/commit/0fd4d231c06f1d641a0cc30f8ffe22775043e89d">docs updates for 4.9.3</a>.</li>
+    </ul>
+  </li>
 </ol>
 
 <h2 id="8-announce-the-release">8. Announce the Release</h2>
